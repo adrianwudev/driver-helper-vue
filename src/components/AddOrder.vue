@@ -26,11 +26,19 @@
           </div>
           <div class="field">
             <label class="label">上下車</label>
-            <input v-model="newOrder.pickupDropoff" class="input" type="text" required>
+            <div class="control">
+              <div class="select">
+                <select v-model="newOrder.pickUpDrop" class="input" required>
+                  <option value="">請選擇</option>
+                  <option value="上車">上車</option>
+                  <option value="下車">下車</option>
+                </select>
+              </div>
+            </div>
           </div>
           <div class="field">
             <label class="label">上車時間</label>
-            <input v-model="newOrder.pickupTime" class="input" type="datetime-local" required>
+            <input v-model="newOrder.pickUpTime" class="input" type="datetime-local" required>
           </div>
           <div class="field">
             <label class="label">群組名</label>
@@ -38,7 +46,8 @@
           </div>
           <div class="field">
             <label class="label">金額</label>
-            <input v-model="newOrder.amount" class="input" type="text" required>
+            <!-- <input v-model="newOrder.amount" class="input" type="text" required> -->
+            <input v-model="newOrder.amount" class="input" type="number" min="1" step="any" required />
           </div>
           <div class="field">
             <label class="label">距離</label>
@@ -80,8 +89,8 @@ export default {
         district: '',
         address: '',
         orderTime: '',
-        pickupDropoff: '',
-        pickupTime: '',
+        pickUpDrop: '',
+        pickUpTime: '',
         groupName: '',
         amount: '',
         distance: '',
@@ -120,7 +129,7 @@ export default {
       console.log('submit sent: ', this.newOrder)
       this.resetForm();
       this.showModal = false;
-      window.location.reload();
+      // window.location.reload();
     },
     resetForm() {
       this.newOrder = {
@@ -128,8 +137,8 @@ export default {
         district: '',
         address: '',
         orderTime: '',
-        pickupDropoff: '',
-        pickupTime: '',
+        pickUpDrop: '',
+        pickUpTime: '',
         groupName: '',
         amount: '',
         distance: '',
@@ -141,21 +150,43 @@ export default {
       // Implement your form validation logic here
       // Return true if the form is valid, false otherwise
       // You can check if the required fields are filled, validate the format, etc.
+      const requiredFields = ['city', 'district', 'address', 'orderTime', 'pickUpDrop', 'pickUpTime', 'groupName', 'amount', 'distance'];
+      const fieldMap = new Map([
+        ['city', '城市'],
+        ['district', '區'],
+        ['address', '地址'],
+        ['orderTime', '訂單時間'],
+        ['pickUpDrop', '上下車'],
+        ['pickUpTime', '上車時間'],
+        ['groupName', '群組名'],
+        ['amount', '金額'],
+        ['distance', '距離'],
+      ]);
+
+      for (const field of requiredFields) {
+        if (this.newOrder[field] === '') {
+          const fieldName = fieldMap.get(field);
+          alert(`請填寫${fieldName}`);
+          return false;
+        }
+      }
+
       return true;
     },
     isFormEmpty() {
       if (this.newOrder === null) return false;
+
       return (
         this.newOrder.city.trim() === '' &&
         // Check other fields...
         true
       );
     },
-    async PostData(){
-      try{
+    async PostData() {
+      try {
         const response = await axios.post('api/orders', this.newOrder);
         console.log(response.data);
-      }catch (e){
+      } catch (e) {
         console.log(e)
       }
     },
