@@ -46,7 +46,6 @@
           </div>
           <div class="field">
             <label class="label">金額</label>
-            <!-- <input v-model="newOrder.amount" class="input" type="text" required> -->
             <input v-model="newOrder.amount" class="input" type="number" min="1" step="any" required />
           </div>
           <div class="field">

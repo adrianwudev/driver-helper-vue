@@ -1,6 +1,6 @@
 <template>
     <div class="table-container">
-        <table class="custom-table">
+        <table class="custom-table" id="custom-table">
             <!-- class="table table-striped table-hover" -->
             <thead>
                 <tr>
@@ -28,11 +28,22 @@
         </table>
         <nav aria-label="Page navigation example" class="pagination-container">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">上一頁</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">下一頁</a></li>
+                <li class="page-item"><a class="page-link" href="#" @click="$emit('to-page', 1)">首頁</a></li>
+                <li class="page-item"><a class="page-link" href="#" @click="$emit('to-page', previousPage)">上一頁</a></li>
+                <li class="page-item"><a class="page-link" href="#" @click="$emit('to-page', data.page)">{{ data.page }}</a></li>
+                <li class="page-item" v-if="totalPages >= secondPage"><a class="page-link" href="#"
+                    @click="$emit('to-page', secondPage)">{{ secondPage }}</a></li>
+                <li class="page-item" v-if="totalPages >= thirdPage"><a class="page-link" href="#"
+                    @click="$emit('to-page', thirdPage)">{{ thirdPage }}</a></li>
+                <li class="page-item" 
+                
+                ><a class="page-link" href="#" @click="$emit('to-page', nextPage)">下一頁</a></li>
+                <li class="page-item"><a class="page-link" href="#" 
+                    @click="$emit('to-page', totalPages)">末頁</a></li>
+                <li class="page-item page-info">總數: {{ data.total }}</li>
+                <li class="page-item page-info">頁數: {{ data.page }} / {{ totalPages }}</li>
+                <li class="page-item page-info">每頁大小: {{ data.pageSize }}</li>
+
             </ul>
         </nav>
     </div>
@@ -45,11 +56,38 @@ import Order from './Order'
 export default {
     name: 'Table',
     props: {
-        orders: Array
+        orders: Array,
+        data: Object,
     },
     components: {
         Order
     },
+    emits:['toPage'],
+    computed: {
+        previousPage() {
+            return (
+                this.data.page - 1 < 1
+                    ? 1 : this.data.page - 1
+            )
+        },
+        nextPage() {
+            return (
+                this.data.page + 1 <= this.totalPages ? this.data.page + 1 : this.totalPages
+            )
+        },
+        secondPage() {
+            return this.data.page + 1;
+        },
+        thirdPage() {
+            return this.secondPage + 1;
+        },
+        totalPages() {
+            return Math.ceil(this.data.total / this.data.pageSize);
+        }
+    },
+    methods: {
+
+    }
 }
 </script>
 
@@ -84,9 +122,14 @@ export default {
 .custom-table tr:hover {
     background-color: #eaeaea;
 }
+
 .pagination-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
 }
-</style>
+
+
+.page-info {
+    margin: 5px;
+}</style>

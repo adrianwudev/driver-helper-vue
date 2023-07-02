@@ -1,7 +1,7 @@
 <template>
     <Header />
     <AddOrder />
-    <Table :orders="orders" />
+    <Table :orders="orders" :data="data" @to-page="toPage" />
 </template>
 
 <script>
@@ -24,6 +24,7 @@ export default {
 
         return {
             orders: [],
+            data: {},
         }
     },
     methods: {
@@ -44,16 +45,19 @@ export default {
             try{
                 console.log("getData")
                 const result = await this.fetchOrders();
-                console.log(result)
                 if (result.statusCode !== 200) return
+                this.data = result.data
                 this.orders = result.data.results
             }catch(e){
                 console.log("error: ", e)
             }
+        },
+        async toPage(pageNum){
+            console.log(pageNum)
         }
     },
     async created() {
-        this.orders = this.getData();
+        this.getData();
         
     },
 }
