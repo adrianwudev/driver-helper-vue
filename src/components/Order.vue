@@ -6,7 +6,7 @@
     <td>{{ order.orderTime }}</td>
     <td>{{ pickUpDropText }}</td>
     <td>{{ order.pickUpTime }}</td>
-    <td>{{ order.weekday }}</td>
+    <td>{{ getWeekdayText }}</td>
     <td>{{ order.groupName }}</td>
     <td>{{ order.amount }}</td>
     <td>{{ order.distance }}</td>
@@ -40,6 +40,19 @@ export default {
             } else {
                 return '';
             }
+        },
+        getWeekdayText() {
+            const weekdayMap = new Map([
+                ['MONDAY', '週一'],
+                ['TUESDAY', '週二'],
+                ['WEDNESDAY', '週三'],
+                ['THURSDAY', '週四'],
+                ['FRIDAY', '週五'],
+                ['SATURDAY', '週六'],
+                ['SUNDAY', '週日']
+            ]);
+
+            return weekdayMap.get(this.order.weekday) || '';
         }
     }
     ,
