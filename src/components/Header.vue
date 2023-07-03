@@ -1,62 +1,36 @@
 <template>
     <header>
-        <!-- <nav class="navbar navbar-dark bg-dark">
-            <h1>訂單查詢</h1>
-        </nav> -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand " href="#" style="margin-left: 5px;">訂單查詢</a>
-            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button> -->
-
-            <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div> -->
+            <a class="navbar-brand" href="#" style="margin-left: 5px; font-weight: bold; font-size: 24px;">訂單查詢</a>
         </nav>
-
     </header>
-    <!-- <hr /> -->
 </template>
-  
+
 <script>
 export default {
     name: 'Header',
 };
 </script>
-  
+
 <style scoped>
 header {
-    /* display: flex; */
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+    background-color: #f8f9fa;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    color: #333;
+    text-decoration: none;
+}
+
+.navbar-brand:hover {
+    color: #007bff;
+}
+
+@media (max-width: 575.98px) {
+    .navbar-brand {
+        font-size: 20px;
+    }
 }
 </style>
-  

@@ -30,8 +30,8 @@
               <div class="select">
                 <select v-model="newOrder.pickUpDrop" class="input" required>
                   <option value="">請選擇</option>
-                  <option value="上車">上車</option>
-                  <option value="下車">下車</option>
+                  <option value="On">上車</option>
+                  <option value="Off">下車</option>
                 </select>
               </div>
             </div>
