@@ -49,25 +49,13 @@ export default {
         async getData() {
             try {
                 this.$emit('condition-search', {
-                    page: this.page,
+                    page: 1,
                     pageSize: this.pageSize,
                     city: this.searchCity,
                     district: this.searchDistrict,
                     weekDay: this.searchWeekDay,
                     isException: this.searchIsException,
                 })
-
-                this.$router.replace({
-                    query:
-                    {
-                        page: this.page,
-                        pageSize: this.pageSize,
-                        city: this.searchCity,
-                        district: this.searchCity,
-                        weekDay: this.searchWeekDay,
-                        isException: this.searchIsException,
-                    }
-                });
             } catch (e) {
                 console.log("error: ", e)
             }
