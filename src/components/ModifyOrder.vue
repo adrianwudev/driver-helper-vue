@@ -119,7 +119,8 @@
       modifyOrder() {
         this.putData();
         this.resetForm();
-        // this.showModal = false;
+        this.showModal = false;
+        window.location.reload();
       },
       resetForm() {
         this.selectedOrder = {};

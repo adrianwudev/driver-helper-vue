@@ -3,9 +3,9 @@
     <td>{{ order.city }}</td>
     <td>{{ order.district }}</td>
     <td>{{ order.address }}</td>
-    <td>{{ order.orderTime }}</td>
+    <td>{{ formattedOrderTime }}</td>
     <td>{{ pickUpDropText }}</td>
-    <td>{{ order.pickUpTime }}</td>
+    <td>{{ formattedPickUpTime }}</td>
     <td>{{ getWeekdayText }}</td>
     <td>{{ order.groupName }}</td>
     <td>{{ order.amount }}</td>
@@ -22,6 +22,7 @@
 
 <script>
 import ModifyOrder from './ModifyOrder.vue'
+import { format } from 'date-fns';
 
 export default {
     name: 'Order',
@@ -30,6 +31,11 @@ export default {
     },
     components: {
         ModifyOrder,
+    },
+    methods:{
+        formatTime(time){
+            return format(new Date(time), 'yyyy-MM-dd HH:mm:ss');
+        },
     },
     computed: {
         pickUpDropText() {
@@ -53,9 +59,14 @@ export default {
             ]);
 
             return weekdayMap.get(this.order.weekday) || '';
+        }, 
+        formattedOrderTime() {
+            return this.formatTime(this.order.orderTime)
+        },
+        formattedPickUpTime() {
+            return this.formatTime(this.order.pickUpTime)
         }
-    }
-    ,
+    },
     emits: ['delete-order'],
 }
 </script>

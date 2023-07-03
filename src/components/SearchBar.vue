@@ -45,9 +45,20 @@ export default {
             searchIsException: false,
         }
     },
+    mounted() {
+        this.searchCity = localStorage.getItem('searchCity') || '';
+        this.searchDistrict = localStorage.getItem('searchDistrict') || '';
+        this.searchWeekDay = localStorage.getItem('searchWeekDay') || '';
+        this.searchIsException = localStorage.getItem('searchIsException') === 'true';
+    },
     methods: {
         async getData() {
             try {
+                localStorage.setItem('searchCity', this.searchCity);
+                localStorage.setItem('searchDistrict', this.searchDistrict);
+                localStorage.setItem('searchWeekDay', this.searchWeekDay);
+                localStorage.setItem('searchIsException', this.searchIsException.toString());
+
                 this.$emit('condition-search', {
                     page: 1,
                     pageSize: this.pageSize,
