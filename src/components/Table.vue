@@ -22,7 +22,8 @@
             </thead>
             <tbody>
                 <tr v-for="order in orders" :key="order.id">
-                    <Order :order="order" />
+                    <Order   @delete-order="$emit('delete-order', order.orderId)"
+                    :order="order"/>
                 </tr>
             </tbody>
         </table>
@@ -41,7 +42,7 @@
                 <li class="page-item"><a class="page-link" href="#" 
                     @click="$emit('to-page', totalPages)">末頁</a></li>
                 <li class="page-item page-info">總數: {{ data.total }}</li>
-                <li class="page-item page-info">頁數: {{ data.page }} / {{ totalPages }}</li>
+                <li class="page-item page-info">頁數: {{ data.page }}/{{ totalPages }}</li>
                 <li class="page-item page-info">每頁大小: {{ data.pageSize }}</li>
 
             </ul>
@@ -62,7 +63,7 @@ export default {
     components: {
         Order
     },
-    emits:['toPage'],
+    emits:['to-page', 'delete-order'],
     computed: {
         previousPage() {
             return (

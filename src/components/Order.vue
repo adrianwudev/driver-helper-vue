@@ -23,7 +23,7 @@
     <td>
         <div class="button-container">
             <button type="button" class="btn btn-primary btn-sm">修改</button>
-            <button type="button" class="btn btn-danger btn-sm">刪除</button>
+            <button type="button" class="btn btn-danger btn-sm" @click="$emit('delete-order', order.orderId)">刪除</button>
         </div>
     </td>
 </template>
@@ -33,7 +33,8 @@ export default {
     name: 'Order',
     props: {
         order: Object
-    }
+    },
+    emits:['delete-order'],
 }
 </script>
 
