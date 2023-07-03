@@ -175,15 +175,15 @@ export default {
     isFormEmpty() {
       if (this.newOrder === null) return false;
 
-      return (
-        this.newOrder.city.trim() === '' &&
-        // Check other fields...
-        true
-      );
+      return true
     },
     async PostData() {
       try {
         const response = await axios.post('api/orders', this.newOrder);
+        if (response.data.statusCode !== 200){
+          alert(response.data.message)
+          return
+        }
         console.log(response.data);
       } catch (e) {
         console.log(e)

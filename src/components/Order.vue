@@ -22,18 +22,23 @@
     <td>{{ order.repeatCount }}</td>
     <td>
         <div class="button-container">
-            <button type="button" class="btn btn-primary btn-sm">修改</button>
+            <ModifyOrder :order="order"/>
             <button type="button" class="btn btn-danger btn-sm" @click="$emit('delete-order', order.orderId)">刪除</button>
         </div>
     </td>
 </template>
 
 <script>
+import ModifyOrder from './ModifyOrder.vue'
+
 export default {
     name: 'Order',
     props: {
         order: Object
     },
+    components:{
+    ModifyOrder,
+},
     emits:['delete-order'],
 }
 </script>
