@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { apiAddNewOrder } from '@/api.js';
 export default {
   name: 'AddOrder',
   data() {
@@ -178,16 +178,9 @@ export default {
       return true
     },
     async PostData() {
-      try {
-        const response = await axios.post('api/orders', this.newOrder);
-        if (response.data.statusCode !== 200){
-          alert(response.data.message)
-          return
-        }
-        console.log(response.data);
-      } catch (e) {
-        console.log(e)
-      }
+      const data = await apiAddNewOrder(this.newOrder);
+      if(data)
+        console.log(data)
     },
   }
 };

@@ -44,7 +44,7 @@ export default {
             } else if (this.order.pickUpDrop === 'Off') {
                 return '下車';
             } else {
-                return '';
+                return this.order.pickUpDrop;
             }
         },
         getWeekdayText() {

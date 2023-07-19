@@ -77,7 +77,7 @@
   </template>
   
   <script>
-  import axios from 'axios';
+  import { apiModifyOrder } from '@/api.js';
   
   export default {
     name: 'ModifyOrder',
@@ -156,16 +156,9 @@
         return this.selectedOrder === null;
       },
       async putData() {
-        try {
-          const response = await axios.put(`api/orders`, this.selectedOrder);
-          if (response.data.statusCode !== 200){
-          alert(response.data.message)
-          return
-          }
+        const data= await apiModifyOrder(this.selectedOrder);
+        if(data)
           console.log(response.data);
-        } catch (e) {
-          console.log(e)
-        }
       },
     }
   };

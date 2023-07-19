@@ -11,7 +11,8 @@ import Table from '../components/Table.vue'
 import Header from '../components/Header.vue'
 import AddOrder from '../components/AddOrder.vue'
 import SearchBar from '@/components/SearchBar.vue'
-import axios from 'axios';
+import { apiFetchOrders, apiGetOrdersByConditions, apiDeleteOrder } from '@/api.js';
+
 
 export default {
     name: 'Home',
@@ -40,18 +41,7 @@ export default {
     },
     methods: {
         async fetchOrders(page, pageSize) {
-            try {
-                const url = `api/orders?page=${page}&pageSize=${pageSize}`
-                const res = await fetch(url)
-                if (!res.ok) {
-                    throw new Error('Request failed with status ' + res.status);
-                }
-                const data = res.json()
-                return data
-            } catch (e) {
-                console.log("error: ", e)
-            }
-
+            return await apiFetchOrders(page, pageSize);
         },
         async toPage(pageNum) {
             this.page = pageNum
@@ -59,28 +49,12 @@ export default {
         },
         async deleteOrder(orderId) {
             if (!confirm('確定要刪除訂單嗎？')) return
-            try {
-                const res = await fetch(`api/orders/${orderId}`, {
-                    method: 'DELETE',
-                });
-                window.location.reload();
-                console.log(res)
-            } catch (e) {
-                console.log("error: ", e)
-            }
+            await apiDeleteOrder(orderId);
+            window.location.reload();
         },
         async fetchOrdersByConditions() {
             try {
-
-                const url = `api/orders/conditions?page=${this.page}&pageSize=${this.pageSize}&city=${this.city}
-                                &district=${this.district}&weekDay=${this.weekDay}&isException=${this.isException}`
-
-                console.log('url', url)
-                const res = await axios.get(url)
-                if (res.status !== 200) {
-                    throw new Error('Request failed with status ' + res.status);
-                }
-                const data = res.data
+                const data = await apiGetOrdersByConditions(this.page, this.pageSize, this.city, this.district, this.weekDay, this.isException);
                 this.setNewPage(data);
             } catch (e) {
                 console.log("error: ", e)
