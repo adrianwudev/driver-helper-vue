@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { apiAddNewOrder } from '@/api.js';
+import { apiAddNewOrder } from '../api/api.js';
 export default {
   name: 'AddOrder',
   data() {

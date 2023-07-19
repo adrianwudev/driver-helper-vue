@@ -11,7 +11,7 @@ import Table from '../components/Table.vue'
 import Header from '../components/Header.vue'
 import AddOrder from '../components/AddOrder.vue'
 import SearchBar from '@/components/SearchBar.vue'
-import { apiFetchOrders, apiGetOrdersByConditions, apiDeleteOrder } from '@/api.js';
+import { apiFetchOrders, apiGetOrdersByConditions, apiDeleteOrder } from '../api/api.js';
 
 
 export default {
