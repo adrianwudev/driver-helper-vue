@@ -3,7 +3,7 @@ services:
   frontend:
     build:
       context: ./
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     container_name: driver-helper-frontend
     restart: always
     ports:

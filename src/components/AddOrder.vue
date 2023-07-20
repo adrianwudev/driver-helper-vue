@@ -128,7 +128,7 @@ export default {
       console.log('submit sent: ', this.newOrder)
       this.resetForm();
       this.showModal = false;
-      // window.location.reload();
+      window.location.reload();
     },
     resetForm() {
       this.newOrder = {
