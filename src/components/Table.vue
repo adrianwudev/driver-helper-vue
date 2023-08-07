@@ -9,7 +9,7 @@
                     <th scope="col">區</th>
                     <th scope="col">地址</th>
                     <th scope="col">訂單時間</th>
-                    <th scope="col">上下車</th>
+                    <th scope="col">下車地點</th>
                     <th scope="col">上車時間</th>
                     <th scope="col">星期</th>
                     <th scope="col">群組名</th>

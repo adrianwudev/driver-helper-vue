@@ -25,16 +25,8 @@
               <input v-model="selectedOrder.orderTime" class="input" type="datetime-local" required>
             </div>
             <div class="field">
-              <label class="label">上下車</label>
-              <div class="control">
-                <div class="select">
-                  <select v-model="selectedOrder.pickUpDrop" class="input" required>
-                    <option value="">請選擇</option>
-                    <option value="On">上車</option>
-                    <option value="Off">下車</option>
-                  </select>
-                </div>
-              </div>
+              <label class="label">下車地點</label>
+              <input v-model="selectedOrder.pickUpDrop" class="input" type="text" required>
             </div>
             <div class="field">
               <label class="label">上車時間</label>
@@ -135,7 +127,7 @@
           ['district', '區'],
           ['address', '地址'],
           ['orderTime', '訂單時間'],
-          ['pickUpDrop', '上下車'],
+          ['pickUpDrop', '下車地點'],
           ['pickUpTime', '上車時間'],
           ['groupName', '群組名'],
           ['amount', '金額'],

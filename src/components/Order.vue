@@ -4,7 +4,7 @@
     <td>{{ order.district }}</td>
     <td>{{ order.address }}</td>
     <td>{{ formattedOrderTime }}</td>
-    <td>{{ pickUpDropText }}</td>
+    <td>{{ order.pickUpDrop }}</td>
     <td>{{ formattedPickUpTime }}</td>
     <td>{{ getWeekdayText }}</td>
     <td>{{ order.groupName }}</td>
@@ -38,15 +38,6 @@ export default {
         },
     },
     computed: {
-        pickUpDropText() {
-            if (this.order.pickUpDrop === 'On') {
-                return '上車';
-            } else if (this.order.pickUpDrop === 'Off') {
-                return '下車';
-            } else {
-                return this.order.pickUpDrop;
-            }
-        },
         getWeekdayText() {
             const weekdayMap = new Map([
                 ['MONDAY', '週一'],
