@@ -87,19 +87,19 @@ export default {
             this.city = searchCondition.city || ''
             this.district = searchCondition.district || ''
             this.weekDay = searchCondition.weekDay || ''
-            this.isException = searchCondition.isException || false
+            this.isException = searchCondition.isException || ''
 
 
             this.fetchOrdersByConditions()
             this.$router.replace({
                 query:
                 {
-                    page: 1,
-                    pageSize: searchCondition.pageSize,
-                    city: searchCondition.city,
-                    district: searchCondition.district,
-                    weekDay: searchCondition.weekDay,
-                    isException: searchCondition.isException,
+                    page: this.page,
+                    pageSize: this.pageSize,
+                    city: this.city,
+                    district: this.district,
+                    weekDay: this.weekDay,
+                    isException: this.isException,
                 }
             });
         }
@@ -110,7 +110,7 @@ export default {
         this.city = this.$route.query.city || ''
         this.district = this.$route.query.district || ''
         this.weekDay = this.$route.query.weekDay || ''
-        this.isException = this.$route.query.searchIsException || false
+        this.isException = this.$route.query.searchIsException || ''
 
         this.fetchOrdersByConditions()
     },

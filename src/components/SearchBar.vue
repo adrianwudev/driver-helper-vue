@@ -20,6 +20,7 @@
         </div>
         <div class="form-outline form-outline-sm">
             <select v-model="searchIsException" class="form-control custom-select">
+                <option value="">請選擇</option>
                 <option value="false">正常</option>
                 <option value="true">異常</option>
             </select>
@@ -42,14 +43,14 @@ export default {
             searchCity: '',
             searchDistrict: '',
             searchWeekDay: '',
-            searchIsException: false,
+            searchIsException: '',
         }
     },
     mounted() {
         this.searchCity = localStorage.getItem('searchCity') || '';
         this.searchDistrict = localStorage.getItem('searchDistrict') || '';
         this.searchWeekDay = localStorage.getItem('searchWeekDay') || '';
-        this.searchIsException = localStorage.getItem('searchIsException') === 'true';
+        this.searchIsException = localStorage.getItem('searchIsException') || '';
     },
     methods: {
         async getData() {
@@ -57,7 +58,7 @@ export default {
                 localStorage.setItem('searchCity', this.searchCity);
                 localStorage.setItem('searchDistrict', this.searchDistrict);
                 localStorage.setItem('searchWeekDay', this.searchWeekDay);
-                localStorage.setItem('searchIsException', this.searchIsException.toString());
+                localStorage.setItem('searchIsException', this.searchIsException);
 
                 this.$emit('condition-search', {
                     page: 1,

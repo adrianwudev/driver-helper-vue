@@ -10,7 +10,7 @@
     <td>{{ order.groupName }}</td>
     <td>{{ order.amount }}</td>
     <td>{{ order.distance }}</td>
-    <td>{{ order.isException ? '異常' : '正常' }}</td>
+    <td>{{ order.isException === true ? '異常' : '正常' }}</td>
     <td>{{ order.repeatCount }}</td>
     <td>
         <div class="button-container">
