@@ -55,6 +55,9 @@ export default {
             return this.formatTime(this.order.orderTime)
         },
         formattedPickUpTime() {
+            if (this.order.pickUpTime === null){
+                return ''
+            }
             return this.formatTime(this.order.pickUpTime)
         }
     },
