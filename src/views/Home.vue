@@ -31,7 +31,7 @@ export default {
         return {
             orders: [],
             data: {},
-            pageSize: 5,
+            pageSize: 10,
             page: 1,
             city: '',
             district: '',
