@@ -54,6 +54,7 @@ export default {
         },
         async selectionChange(pageSize) {
             this.pageSize = pageSize
+            localStorage.setItem('searchPageSize', this.pageSize);
             this.fetchOrdersByConditions()
         },
         async fetchOrdersByConditions() {
@@ -65,13 +66,8 @@ export default {
             }
 
         },
-        async setNewPage(data) {
-            this.data = data.data
-            this.orders = data.data.results
-            this.page =  this.page || this.$route.query.page
-            this.pageSize = this.pageSize || this.$route.query.pageSize
-            console.log(this.page, this.pageSize)
-
+        async resetRouter(){
+            
             this.$router.replace({
                 query:
                 {
@@ -84,8 +80,16 @@ export default {
                 }
             });
         },
+        async setNewPage(data) {
+            this.data = data.data
+            this.orders = data.data.results
+            this.page =  this.page || this.$route.query.page
+            this.pageSize = this.pageSize || this.$route.query.pageSize
+            console.log(this.page, this.pageSize)
+            this.resetRouter()
+        },
         async conditionSearch(searchCondition) {
-
+            
             this.page = searchCondition.page || this.page
             this.pageSize = searchCondition.pageSize || this.pageSize
             this.city = searchCondition.city || ''
@@ -93,30 +97,32 @@ export default {
             this.weekDay = searchCondition.weekDay || ''
             this.isException = searchCondition.isException || ''
 
-
             this.fetchOrdersByConditions()
-            this.$router.replace({
-                query:
-                {
-                    page: this.page,
-                    pageSize: this.pageSize,
-                    city: this.city,
-                    district: this.district,
-                    weekDay: this.weekDay,
-                    isException: this.isException,
+            this.resetRouter()
+        },
+        async cleanLocalStorage(){
+            const queryParams = this.$route.query
+            const itemToRemove = ["city", "district", "weekDay", "isException"]
+
+            itemToRemove.forEach(item => {
+                if(!queryParams[item]){
+                    localStorage.removeItem(`search${item.charAt(0).toUpperCase() + item.slice(1)}`)
                 }
-            });
-        }
+            })
+        },
     },
     async created() {
+        this.cleanLocalStorage()
+
         this.page = this.$route.query.page || this.page;
-        this.pageSize = this.$route.query.pageSize || this.pageSize;
-        this.city = this.$route.query.city || ''
-        this.district = this.$route.query.district || ''
-        this.weekDay = this.$route.query.weekDay || ''
-        this.isException = this.$route.query.searchIsException || ''
+        this.pageSize = this.$route.query.pageSize || localStorage.getItem('searchPageSize') || this.pageSize;
+        this.city = this.$route.query.city || localStorage.getItem('searchCity') || ''
+        this.district = this.$route.query.district || localStorage.getItem('searchDistrict') || ''
+        this.weekDay = this.$route.query.weekDay || localStorage.getItem('searchWeekDay') || ''
+        this.isException = this.$route.query.searchIsException || localStorage.getItem('searchIsException') || ''
 
         this.fetchOrdersByConditions()
+        this.resetRouter()
     },
 }
 </script>

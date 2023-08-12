@@ -40,6 +40,7 @@ export default {
     },
     data() {
         return {
+            searchPageSize: 10,
             searchCity: '',
             searchDistrict: '',
             searchWeekDay: '',
@@ -47,22 +48,31 @@ export default {
         }
     },
     mounted() {
-        this.searchCity = localStorage.getItem('searchCity') || '';
-        this.searchDistrict = localStorage.getItem('searchDistrict') || '';
-        this.searchWeekDay = localStorage.getItem('searchWeekDay') || '';
-        this.searchIsException = localStorage.getItem('searchIsException') || '';
+        this.getFromLocalStorage()
     },
     methods: {
+        async getFromLocalStorage(){
+            this.searchPageSize = localStorage.getItem('searchPageSize') || 10;
+            this.searchCity = localStorage.getItem('searchCity') || '';
+            this.searchDistrict = localStorage.getItem('searchDistrict') || '';
+            this.searchWeekDay = localStorage.getItem('searchWeekDay') || '';
+            this.searchIsException = localStorage.getItem('searchIsException') || '';
+        },
+        async searchBarSetLocalStorage(){
+            localStorage.setItem('searchPageSize', this.searchPageSize);
+            localStorage.setItem('searchCity', this.searchCity);
+            localStorage.setItem('searchDistrict', this.searchDistrict);
+            localStorage.setItem('searchWeekDay', this.searchWeekDay);
+            localStorage.setItem('searchIsException', this.searchIsException);
+        },
         async getData() {
             try {
-                localStorage.setItem('searchCity', this.searchCity);
-                localStorage.setItem('searchDistrict', this.searchDistrict);
-                localStorage.setItem('searchWeekDay', this.searchWeekDay);
-                localStorage.setItem('searchIsException', this.searchIsException);
+                this.searchPageSize = localStorage.getItem('searchPageSize') || 10;
+                this.searchBarSetLocalStorage()
 
                 this.$emit('condition-search', {
                     page: 1,
-                    pageSize: this.pageSize,
+                    pageSize: this.searchPageSize,
                     city: this.searchCity,
                     district: this.searchDistrict,
                     weekDay: this.searchWeekDay,
