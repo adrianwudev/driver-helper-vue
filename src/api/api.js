@@ -5,10 +5,13 @@ const prod = process.env.VUE_APP_PROD
 
 const BASE_URL = prod == 'PROD' ? 'http://localhost:8081' : '';
 
-export const apiGetOrdersByConditions = async (page, pageSize, city, district, weekDay, isException) => {
-    let url = `${BASE_URL}/api/orders/conditions?page=${page}&pageSize=${pageSize}&city=${city}&district=${district}&weekDay=${weekDay}&isException=${isException}`;
-    if(isException === '') {
-        url = `${BASE_URL}/api/orders/conditions?page=${page}&pageSize=${pageSize}&city=${city}&district=${district}&weekDay=${weekDay}`;
+export const apiGetOrdersByConditions = async (page, pageSize, city, district, weekDay, isException, time) => {
+    let url = `${BASE_URL}/api/orders/conditions?page=${page}&pageSize=${pageSize}&city=${city}&district=${district}&weekDay=${weekDay}`;
+    if(isException !== '') {
+        url += `&isException=${isException}`;
+    }
+    if(time !== ''){
+        url += `&time=${time}`;
     }
     try {
         const res = await axios.get(url);

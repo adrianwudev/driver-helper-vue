@@ -37,6 +37,7 @@ export default {
             district: '',
             weekDay: '',
             isException: false,
+            time: '',
         }
     },
     methods: {
@@ -59,7 +60,7 @@ export default {
         },
         async fetchOrdersByConditions() {
             try {
-                const data = await apiGetOrdersByConditions(this.page, this.pageSize, this.city, this.district, this.weekDay, this.isException);
+                const data = await apiGetOrdersByConditions(this.page, this.pageSize, this.city, this.district, this.weekDay, this.isException, this.time);
                 this.setNewPage(data);
             } catch (e) {
                 console.log("error: ", e)
@@ -77,6 +78,7 @@ export default {
                     district: this.district,
                     weekDay: this.weekDay,
                     isException: this.isException,
+                    time: this.time,
                 }
             });
         },
@@ -96,13 +98,14 @@ export default {
             this.district = searchCondition.district || ''
             this.weekDay = searchCondition.weekDay || ''
             this.isException = searchCondition.isException || ''
+            this.time = searchCondition.time || ''
 
             this.fetchOrdersByConditions()
             this.resetRouter()
         },
         async cleanLocalStorage(){
             const queryParams = this.$route.query
-            const itemToRemove = ["city", "district", "weekDay", "isException"]
+            const itemToRemove = ["city", "district", "weekDay", "isException", "time"]
 
             itemToRemove.forEach(item => {
                 if(!queryParams[item]){
@@ -120,6 +123,7 @@ export default {
         this.district = this.$route.query.district || localStorage.getItem('searchDistrict') || ''
         this.weekDay = this.$route.query.weekDay || localStorage.getItem('searchWeekDay') || ''
         this.isException = this.$route.query.searchIsException || localStorage.getItem('searchIsException') || ''
+        this.time = this.$route.query.searchTime || localStorage.getItem('searchTime') || ''
 
         this.fetchOrdersByConditions()
         this.resetRouter()

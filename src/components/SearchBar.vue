@@ -25,6 +25,9 @@
                 <option value="true">異常</option>
             </select>
         </div>
+        <div class="cs-form">
+            <input v-model="searchTime" type="time" class="form-control" />
+        </div>
 
         <button type="button" class="btn btn-outline-primary" @click="getData">search</button>
     </div>
@@ -45,6 +48,7 @@ export default {
             searchDistrict: '',
             searchWeekDay: '',
             searchIsException: '',
+            searchTime: '',
         }
     },
     mounted() {
@@ -57,6 +61,7 @@ export default {
             this.searchDistrict = localStorage.getItem('searchDistrict') || '';
             this.searchWeekDay = localStorage.getItem('searchWeekDay') || '';
             this.searchIsException = localStorage.getItem('searchIsException') || '';
+            this.searchTime = localStorage.getItem('searchTime') || '';
         },
         async searchBarSetLocalStorage(){
             localStorage.setItem('searchPageSize', this.searchPageSize);
@@ -64,12 +69,13 @@ export default {
             localStorage.setItem('searchDistrict', this.searchDistrict);
             localStorage.setItem('searchWeekDay', this.searchWeekDay);
             localStorage.setItem('searchIsException', this.searchIsException);
+            localStorage.setItem('searchTime', this.searchTime);
         },
         async getData() {
             try {
                 this.searchPageSize = localStorage.getItem('searchPageSize') || 10;
                 this.searchBarSetLocalStorage()
-
+                
                 this.$emit('condition-search', {
                     page: 1,
                     pageSize: this.searchPageSize,
@@ -77,6 +83,7 @@ export default {
                     district: this.searchDistrict,
                     weekDay: this.searchWeekDay,
                     isException: this.searchIsException,
+                    time: this.searchTime,
                 })
             } catch (e) {
                 console.log("error: ", e)
