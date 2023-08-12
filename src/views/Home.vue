@@ -3,7 +3,7 @@
     <SearchBar :data="data" :orders="orders" :pageSize="Number(pageSize)" :page="Number(page)"
         @condition-search="conditionSearch" />
     <AddOrder />
-    <Table :orders="orders" :data="data" @to-page="toPage" @delete-order="deleteOrder" />
+    <Table :orders="orders" :data="data" @to-page="toPage" @delete-order="deleteOrder" @selection-change="selectionChange"/>
 </template>
 
 <script>
@@ -51,6 +51,10 @@ export default {
             if (!confirm('確定要刪除訂單嗎？')) return
             await apiDeleteOrder(orderId);
             window.location.reload();
+        },
+        async selectionChange(pageSize) {
+            this.pageSize = pageSize
+            this.fetchOrdersByConditions()
         },
         async fetchOrdersByConditions() {
             try {

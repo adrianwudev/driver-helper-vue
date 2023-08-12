@@ -31,19 +31,35 @@
             <ul class="pagination">
                 <li class="page-item"><a class="page-link" href="#" @click="$emit('to-page', 1)">首頁</a></li>
                 <li class="page-item"><a class="page-link" href="#" @click="$emit('to-page', previousPage)">上一頁</a></li>
-                <li class="page-item"><a class="page-link" href="#" @click="$emit('to-page', data.page)">{{ data.page }}</a></li>
-                <li class="page-item" v-if="totalPages >= secondPage"><a class="page-link" href="#"
+                <li class="page-item" v-if="isShowPreviousPage" >
+                    <a class="page-link" href="#" 
+                    @click="$emit('to-page', previousPage)">{{ previousPage }}</a></li>
+                <li class="page-item" :key="data.page">
+                    <a class="page-link" href="#" 
+                    @click="$emit('to-page', data.page)">{{ data.page }}</a></li>
+                <li class="page-item" v-if="totalPages >= secondPage" :key="secondPage">
+                    <a class="page-link" href="#" 
                     @click="$emit('to-page', secondPage)">{{ secondPage }}</a></li>
-                <li class="page-item" v-if="totalPages >= thirdPage"><a class="page-link" href="#"
+                <li class="page-item" v-if="isShowThirdPage" :key="thirdPage">
+                    <a class="page-link" href="#"
                     @click="$emit('to-page', thirdPage)">{{ thirdPage }}</a></li>
-                <li class="page-item" 
-                
-                ><a class="page-link" href="#" @click="$emit('to-page', nextPage)">下一頁</a></li>
-                <li class="page-item"><a class="page-link" href="#" 
+                <li class="page-item" >
+                    <a class="page-link" href="#" 
+                    @click="$emit('to-page', nextPage)">下一頁</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" 
                     @click="$emit('to-page', totalPages)">末頁</a></li>
                 <li class="page-item page-info">總數: {{ data.total }}</li>
                 <li class="page-item page-info">頁數: {{ data.page }}/{{ totalPages }}</li>
-                <li class="page-item page-info">每頁大小: {{ data.pageSize }}</li>
+                <li class="page-item page-info">
+                    每頁大小: 
+                    <select v-model="data.pageSize" @change="$emit('selection-change', data.pageSize)">
+                        <option v-for="sizeOpt in pageSizeOptions" :value="sizeOpt">
+                            {{ sizeOpt }}
+                        </option>
+                    </select>
+                </li>
+
 
             </ul>
         </nav>
@@ -63,7 +79,7 @@ export default {
     components: {
         Order
     },
-    emits:['to-page', 'delete-order'],
+    emits:['to-page', 'delete-order', 'selection-change'],
     computed: {
         previousPage() {
             return (
@@ -84,10 +100,18 @@ export default {
         },
         totalPages() {
             return Math.ceil(this.data.total / this.data.pageSize);
+        },
+        isShowPreviousPage(){
+            return this.previousPage !== this.data.page;
+        },
+        isShowThirdPage(){
+            return this.previousPage === this.data.page && this.previousPage == this.data.page
+        },
+        pageSizeOptions(){
+            return [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
         }
     },
     methods: {
-
     }
 }
 </script>
