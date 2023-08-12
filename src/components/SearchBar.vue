@@ -1,12 +1,12 @@
 <template>
     <div class="input-group">
-        <div class="form-outline form-outline-sm">
-            <input v-model="searchCity" type="search" class="form-control" placeholder="城市" />
+        <div class="form-outline form-outline-sm search-item-margin">
+            <input v-model="searchCity" type="search" class="form-control city-dis-input" placeholder="城市" />
         </div>
-        <div class="form-outline form-outline-sm">
-            <input v-model="searchDistrict" type="search" class="form-control" placeholder="區" />
+        <div class="form-outline form-outline-sm search-item-margin">
+            <input v-model="searchDistrict" type="search" class="form-control city-dis-input" placeholder="區" />
         </div>
-        <div class="form-outline form-outline-sm">
+        <div class="form-outline form-outline-sm search-item-margin">
             <select v-model="searchWeekDay" class="form-control custom-select">
                 <option value="">請選擇</option>
                 <option value="MONDAY">周一</option>
@@ -18,14 +18,14 @@
                 <option value="SUNDAY">周日</option>
             </select>
         </div>
-        <div class="form-outline form-outline-sm">
+        <div class="form-outline form-outline-sm search-item-margin">
             <select v-model="searchIsException" class="form-control custom-select">
                 <option value="">請選擇</option>
                 <option value="false">正常</option>
                 <option value="true">異常</option>
             </select>
         </div>
-        <div class="cs-form">
+        <div class="cs-form search-item-margin">
             <input v-model="searchTime" type="time" class="form-control" />
         </div>
 
@@ -105,5 +105,12 @@ export default {
     background-repeat: no-repeat;
     background-position: right 0.75rem center;
     background-size: 8px 10px;
+}
+
+.city-dis-input {
+    width: 7rem;
+}
+.search-item-margin{
+    margin-right: 0.22rem;
 }
 </style>
