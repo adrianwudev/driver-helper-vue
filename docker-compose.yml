@@ -27,5 +27,4 @@ services:
 
 networks:
   driver-network:
-    external:
-      name: docker-compose-backend_driver-network
+    external: true
