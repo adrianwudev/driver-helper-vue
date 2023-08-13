@@ -11,6 +11,14 @@
    docker images, docker rmi <IMAGE ID of frontend>
    ```
 
+## Deployment
+1. After developed, push docker image to dockerhub, let deployment easier in prod environment.
+   ```
+   docker tag driver-helper-vue_frontend:latest adrianwudev/driver-helper-vue:0.8131
+   docker push adrianwudev/driver-helper-vue:0.8131
+   ```
+2. And use docker compose in folder ./dockerhub/
+
 ## Project setup
 ```
 npm install
