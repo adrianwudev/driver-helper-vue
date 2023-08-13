@@ -1,9 +1,7 @@
 version: '3'
 services:
   frontend:
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    image: adrianwudev/driver-helper-vue:0.8131
     container_name: driver-helper-frontend
     restart: always
     ports:
